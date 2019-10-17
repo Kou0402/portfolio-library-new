@@ -1,0 +1,20 @@
+{
+  // ESLint & Prettier setting
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "eslint.options": {
+    "configFile": ".eslintrc.js"
+  },
+  "editor.formatOnSave": false,
+  "eslint.autoFixOnSave": true,
+
+  // Editor setting
+  "editor.rulers": [80, 100],
+
+}
