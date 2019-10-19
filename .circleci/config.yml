@@ -10,7 +10,7 @@ jobs:
   deploy:
     working_directory: ~/app
     docker:
-      - image: google/cloud-sdk
+      - image: google/cloud-sdk:267.0.0-alpine
     steps:
       - checkout
       - run: apk add --no-cache nodejs npm yarn
