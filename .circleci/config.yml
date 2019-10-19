@@ -1,16 +1,12 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/app
-    docker:
-      - image: circleci/node:10
-    steps:
-      - checkout
-      - run: echo 1
-  deploy:
-    working_directory: ~/app
     docker:
       - image: google/cloud-sdk:267.0.0-alpine
+    branches:
+      only:
+        - master
+    working_directory: ~/app
     steps:
       - checkout
       - run: apk add --no-cache nodejs npm yarn
@@ -19,13 +15,3 @@ jobs:
       - run: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
       - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: gcloud app deploy --quiet --project portfolio-library-4
-
-workflows:
-  version: 2
-  main:
-    jobs:
-#      - build
-      - deploy:
-          filters:
-            branches:
-              only: master
