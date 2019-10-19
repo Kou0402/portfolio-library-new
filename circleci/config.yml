@@ -1,5 +1,12 @@
 version: 2
 jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run: echo 1
   deploy:
     working_directory: ~/app
     docker:
@@ -17,6 +24,7 @@ workflows:
   version: 2
   main:
     jobs:
+#      - build
       - deploy:
           filters:
             branches:
