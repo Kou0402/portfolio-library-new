@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: google/cloud-sdk:267.0.0-alpine
+    branches:
+      only:
+        - master
+    working_directory: ~/portfolio-library
+    steps:
+      - checkout
+      - run: apk add --no-cache nodejs npm yarn
+      - run: yarn
+      - run: yarn build
+      - run: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - run: gcloud app deploy --quiet --project nenecchi-work
