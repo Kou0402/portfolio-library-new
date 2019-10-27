@@ -2,11 +2,11 @@
   <section class="nav-bar">
     <NavLogo></NavLogo>
     <NavLink path="/">ホーム</NavLink>
-    <NavLink path="/">投稿する</NavLink>
-    <NavLink path="/">サイトについて</NavLink>
-    <NavLink path="/">お知らせ</NavLink>
-    <NavLink path="/">ポートフォリオ作り方講座</NavLink>
-    <NavLink path="/">コンタクト</NavLink>
+    <NavLink path="post">投稿する</NavLink>
+    <NavLink path="about">サイトについて</NavLink>
+    <NavLink path="news">お知らせ</NavLink>
+    <NavLink path="lecture">ポートフォリオ作り方講座</NavLink>
+    <NavLink path="contact">コンタクト</NavLink>
   </section>
 </template>
 
