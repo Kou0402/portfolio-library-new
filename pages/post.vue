@@ -1,6 +1,6 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="post">
+    投稿する
   </section>
 </template>
 

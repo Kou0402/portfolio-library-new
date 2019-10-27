@@ -1,6 +1,6 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="contact">
+    コンタクト
   </section>
 </template>
 

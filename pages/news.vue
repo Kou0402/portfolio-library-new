@@ -1,6 +1,6 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="news">
+    お知らせ
   </section>
 </template>
 

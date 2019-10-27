@@ -1,6 +1,6 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="lecture">
+    ポートフォリオ作り方講座
   </section>
 </template>
 

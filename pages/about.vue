@@ -1,6 +1,6 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="about">
+    サイトについて
   </section>
 </template>
 
