@@ -13,7 +13,6 @@
   justify-content: center;
   align-items: center;
   width: 80px;
-  height: 100%;
   > .logo-phrase {
     color: $base-color;
     font-size: 1.9rem;
