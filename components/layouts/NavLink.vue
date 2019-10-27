@@ -23,7 +23,6 @@ export default {
   > .name {
     color: $base-color;
     font-size: 1.6rem;
-    margin: 0 10px;
   }
 }
 </style>
