@@ -7,6 +7,8 @@
     <NavLink path="news">お知らせ</NavLink>
     <NavLink path="lecture">ポートフォリオ作り方講座</NavLink>
     <NavLink path="contact">コンタクト</NavLink>
+    <NavLink path="mypage" class="mypage">マイページ</NavLink>
+    <NavLink path="login" class="login">ログイン</NavLink>
   </section>
 </template>
 
@@ -31,7 +33,10 @@ export default {
     margin: 0 10px;
   }
   > .nav-link {
-    margin: 0 25px;
+    margin: 0 23px;
+  }
+  > .mypage {
+    margin-left: auto;
   }
 }
 </style>
