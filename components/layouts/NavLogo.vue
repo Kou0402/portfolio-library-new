@@ -1,9 +1,9 @@
 <template>
   <div class="nav-logo">
-    <h1 class="logo-phrase">
+    <nuxt-link to="/" class="logo-phrase">
       Portfolio<br />
       Library
-    </h1>
+    </nuxt-link>
   </div>
 </template>
 
@@ -19,6 +19,7 @@
     text-align: center;
     font-weight: 500;
     line-height: 2rem;
+    text-decoration: none;
   }
 }
 </style>
