@@ -1,9 +1,11 @@
 <template>
   <div>
-    <header>
+    <header class="header">
       <NavBar></NavBar>
     </header>
-    <nuxt />
+    <main class="main">
+      <nuxt />
+    </main>
   </div>
 </template>
 
@@ -16,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.header {
+  margin: 0 0 40px 0;
+}
+</style>
