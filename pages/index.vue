@@ -1,11 +1,22 @@
 <template>
-  <section class="index">
-    ホーム
+  <section class="home">
+    <HomeHero></HomeHero>
   </section>
 </template>
 
+<script>
+import HomeHero from '~/components/page/home/HomeHero.vue'
+
+export default {
+  components: {
+    HomeHero
+  }
+}
+</script>
+
 <style lang="scss" scoped>
-section {
-  font-size: 3rem;
+.home {
+  width: 82vw;
+  margin: 0 auto;
 }
 </style>
