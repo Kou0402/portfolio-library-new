@@ -19,7 +19,7 @@
     color: $main-color1;
     font-size: 2.8rem;
     font-weight: 500;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.4rem;
   }
   > .bar {
     width: 100%;
