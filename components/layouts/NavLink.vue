@@ -17,9 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 .nav-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   > .name {
     display: inline-block;
     position: relative;

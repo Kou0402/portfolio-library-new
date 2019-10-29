@@ -27,6 +27,8 @@ export default {
 <style lang="scss" scoped>
 .nav-bar {
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $main-color1;
   height: 60px;
   > .nav-logo {
