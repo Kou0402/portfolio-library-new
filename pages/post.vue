@@ -1,11 +1,15 @@
 <template>
   <section class="post">
-    投稿する
+    <h1 class="message">あなたのポートフォリオを投稿しよう！</h1>
+    <form class="form">
+      <h2>サイトURL</h2>
+    </form>
   </section>
 </template>
 
 <style lang="scss" scoped>
-section {
-  font-size: 3rem;
+.post {
+  width: 82vw;
+  margin: 0 auto;
 }
 </style>
