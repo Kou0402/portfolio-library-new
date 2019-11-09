@@ -1,10 +1,12 @@
 <template>
   <section class="portfolio-area">
-    <PortfolioCard></PortfolioCard>
-    <PortfolioCard></PortfolioCard>
-    <PortfolioCard></PortfolioCard>
-    <PortfolioCard></PortfolioCard>
-    <PortfolioCard></PortfolioCard>
+    <PortfolioCard
+      v-for="item in portfolioData"
+      :key="item.id"
+      :url="item.url"
+      :title="item.title"
+      :capture-url="item.captureUrl"
+    ></PortfolioCard>
   </section>
 </template>
 
@@ -14,6 +16,11 @@ import PortfolioCard from '~/components/page/home/PortfolioCard.vue'
 export default {
   components: {
     PortfolioCard
+  },
+  computed: {
+    portfolioData() {
+      return this.$store.getters['portfolio/portfolios']
+    }
   }
 }
 </script>

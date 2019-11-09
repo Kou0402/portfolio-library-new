@@ -16,6 +16,31 @@ export default {
     HomeHero,
     OrderArea,
     PortfolioArea
+  },
+  data() {
+    return {
+      startScrollYOffset: 0
+    }
+  },
+  async asyncData({ store }) {
+    store.dispatch('portfolio/initializePortfolios')
+    store.dispatch('portfolio/initializeLastData')
+    await store.dispatch('portfolio/fetchPortfolios')
+  },
+  mounted() {
+    this.setInfiniteScrollSetting()
+  },
+  methods: {
+    setInfiniteScrollSetting() {
+      window.addEventListener('scroll', this.infiniteScroll)
+      this.startScrollYOffset = Math.floor(window.innerHeight / 3)
+    },
+    async infiniteScroll() {
+      if (window.pageYOffset >= this.startScrollYOffset) {
+        this.startScrollYOffset = window.innerHeight + window.pageYOffset
+        await this.$store.dispatch('portfolio/fetchPortfolios')
+      }
+    }
   }
 }
 </script>

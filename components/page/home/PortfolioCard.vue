@@ -1,9 +1,9 @@
 <template>
   <article class="portfolio-card">
-    <a href="https://portfolio-library.com" class="portfolio">
-      <img src="sample.png" alt="" class="image" />
+    <a :href="url" target="_blank" class="portfolio">
+      <img :src="captureUrl" :alt="title" class="image" />
       <p class="description">
-        テストテストテストテストテストテストテストテストテストテストテスト
+        {{ title }}
       </p>
       <div class="favorite"><span class="star">★</span>999</div>
     </a>
@@ -12,6 +12,25 @@
     </a>
   </article>
 </template>
+
+<script>
+export default {
+  props: {
+    url: {
+      type: String,
+      default: ''
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    captureUrl: {
+      type: String,
+      default: ''
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .portfolio-card {
