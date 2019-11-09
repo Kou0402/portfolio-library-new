@@ -1,6 +1,5 @@
 <template>
   <section class="portfolio-area">
-    PortfolioArea
     <PortfolioCard></PortfolioCard>
   </section>
 </template>
