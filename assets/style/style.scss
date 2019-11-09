@@ -10,5 +10,10 @@ html {
   font-size: 62.5%;
 }
 body {
+  color: $main-color1;
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+a {
+  color: $main-color1;
+  text-decoration: none;
 }
