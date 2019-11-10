@@ -3,14 +3,12 @@ const db = firebase.firestore()
 
 export const state = () => ({
   portfolio: '',
-  portfolios: [],
-  lastData: null
+  portfolios: []
 })
 
 export const getters = {
   portfolio: (state) => state.portfolio,
-  portfolios: (state) => state.portfolios,
-  lastData: (state) => state.lastData
+  portfolios: (state) => state.portfolios
 }
 
 export const mutations = {
@@ -24,12 +22,6 @@ export const mutations = {
   },
   initializePortfolios(state) {
     state.portfolios = []
-  },
-  updateLastData(state, lastData) {
-    state.lastData = lastData
-  },
-  initializeLastData(state) {
-    state.lastData = null
   }
 }
 
@@ -60,12 +52,9 @@ export const actions = {
     limit = 12
   ) {
     const portfolioData = []
-    let lastData = getters.lastData
-    let query = db
-      .collection('portfolio')
-      .orderBy(orderBase, order)
-      .limit(limit)
-    if (lastData) query = query.startAfter(lastData)
+    const query = db.collection('portfolio').orderBy(orderBase, order)
+    // todo: Implement limit function
+    // .limit(limit)
     await query
       .get()
       .then((querySnapshot) => {
@@ -78,11 +67,6 @@ export const actions = {
           tempData.captureUrl = document.captureUrl
           portfolioData.push(tempData)
         })
-        // eslint-disable-next-line standard/computed-property-even-spacing
-        lastData = querySnapshot.docs[querySnapshot.docs.length - 1].data()[
-          orderBase
-        ]
-        commit('updateLastData', lastData)
       })
       .catch((error) => {
         console.log(error)
@@ -123,8 +107,5 @@ export const actions = {
         console.log(error)
       })
     commit('addPortfolio', portfolioData)
-  },
-  initializeLastData({ commit }) {
-    commit('initializeLastData')
   }
 }
