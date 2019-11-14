@@ -1,11 +1,32 @@
 <template>
   <section class="post">
-    <h1 class="message">あなたのポートフォリオを投稿しよう！</h1>
+    <h1 class="title">あなたのポートフォリオを投稿しよう！</h1>
     <form class="form">
-      <h2>サイトURL</h2>
+      <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
     </form>
   </section>
 </template>
+
+<script>
+import FormSet from '~/components/page/post/Formset.vue'
+
+export default {
+  components: {
+    FormSet
+  },
+  data() {
+    return {
+      input: ''
+    }
+  },
+  methods: {
+    getInput(value) {
+      this.input = value
+      console.log(this.input)
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .post {
