@@ -20,12 +20,14 @@
       <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
       <PushInButton>投稿する</PushInButton>
     </form>
+    <button class="logout-button" @click="logout">ログアウト</button>
   </section>
 </template>
 
 <script>
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
+import firebase from '@/plugins/firebase'
 import FormSet from '~/components/page/post/Formset.vue'
 import PushInButton from '~/components/ui/button/PushInButton.vue'
 import 'vue-croppa/dist/vue-croppa.css'
@@ -45,6 +47,10 @@ export default {
     getInput(value) {
       this.input = value
       console.log(this.input)
+    },
+    logout() {
+      firebase.auth().signOut()
+      this.$router.push('/')
     }
   }
 }
