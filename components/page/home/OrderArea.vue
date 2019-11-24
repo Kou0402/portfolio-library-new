@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PushInButton from '~/components/ui/PushInButton.vue'
+import PushInButton from '~/components/ui/button/PushInButton.vue'
 
 export default {
   components: {

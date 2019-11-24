@@ -18,6 +18,7 @@
         class="file-form"
       ></croppa>
       <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
+      <PushInButton>投稿する</PushInButton>
     </form>
   </section>
 </template>
@@ -26,12 +27,14 @@
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
 import FormSet from '~/components/page/post/Formset.vue'
+import PushInButton from '~/components/ui/button/PushInButton.vue'
 import 'vue-croppa/dist/vue-croppa.css'
 Vue.use(Croppa)
 
 export default {
   components: {
-    FormSet
+    FormSet,
+    PushInButton
   },
   data() {
     return {
