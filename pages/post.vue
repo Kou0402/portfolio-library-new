@@ -4,13 +4,30 @@
     <form class="form">
       <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
       <FormSet label="サイトタイトル" name="url" @input="getInput"></FormSet>
+      <label class="form-title">
+        サイト画像<span class="capture-ratio">（300×200）</span>
+      </label>
+      <croppa
+        v-model="selectedFile"
+        :width="300"
+        :height="200"
+        placeholder="ファイルを選択"
+        :placeholder-font-size="16"
+        remove-button-color="#464159"
+        :prevent-white-space="true"
+        class="file-form"
+      ></croppa>
       <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
     </form>
   </section>
 </template>
 
 <script>
+import Vue from 'vue'
+import Croppa from 'vue-croppa'
 import FormSet from '~/components/page/post/Formset.vue'
+import 'vue-croppa/dist/vue-croppa.css'
+Vue.use(Croppa)
 
 export default {
   components: {
