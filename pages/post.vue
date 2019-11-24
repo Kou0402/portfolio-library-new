@@ -3,6 +3,8 @@
     <h1 class="title">あなたのポートフォリオを投稿しよう！</h1>
     <form class="form">
       <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
+      <FormSet label="サイトタイトル" name="url" @input="getInput"></FormSet>
+      <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
     </form>
   </section>
 </template>
