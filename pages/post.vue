@@ -40,10 +40,46 @@ export default {
   },
   data() {
     return {
-      input: ''
+      input: '',
+      uid: '',
+      title: '',
+      url: '',
+      captureUrl: '',
+      selectedFile: {},
+      isPosting: false,
+      docId: ''
     }
   },
+  async created() {
+    this.checkLogin()
+    await this.$store.dispatch('portfolio/fetchPortfolio', this.uid)
+    this.setPortfolioData()
+  },
   methods: {
+    /**
+     * Check login status and set uid if logged in.
+     * Otherwise, transition to the login page.
+     */
+    checkLogin() {
+      const currentUser = firebase.auth().currentUser
+      if (currentUser) {
+        this.uid = currentUser.uid
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    /**
+     * Get portfolio data from store and set to data.
+     */
+    setPortfolioData() {
+      const portfolioData = this.$store.getters['portfolio/portfolio']
+      if (portfolioData.docId) {
+        this.title = portfolioData.title
+        this.url = portfolioData.url
+        this.captureUrl = portfolioData.captureUrl
+        this.docId = portfolioData.docId
+      }
+    },
     getInput(value) {
       this.input = value
       console.log(this.input)

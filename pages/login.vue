@@ -17,6 +17,9 @@
       <PushInButton @click="googleLogin">
         <i class="fab fa-google"></i>Googleでログイン
       </PushInButton>
+      <button class="login-button" @click="twitterLogin">
+        twitterでログイン
+      </button>
     </div>
   </section>
 </template>
@@ -46,6 +49,10 @@ export default {
   methods: {
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithRedirect(provider)
+    },
+    twitterLogin() {
+      const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithRedirect(provider)
     },
     logOut() {
