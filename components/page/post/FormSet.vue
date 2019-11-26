@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <input
-      v-model="input"
+      v-model="value"
       type="text"
       :name="name"
       class="form"
@@ -23,19 +23,32 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    initialValue: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data() {
     return {
-      input: ''
+      value: ''
+    }
+  },
+  watch: {
+    initialValue() {
+      this.value = this.initialValue
     }
   },
   methods: {
-    onChangeInput() {
-      this.commitChange(this.input)
+    setInitialValue() {
+      this.value = this.initialValue
     },
-    commitChange(input) {
-      this.$emit('input', input)
+    onChangeInput() {
+      this.commitChange(this.value)
+    },
+    commitChange(value) {
+      this.$emit('input', value)
     }
   }
 }
