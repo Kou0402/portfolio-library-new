@@ -2,8 +2,16 @@
   <section class="post">
     <h1 class="title">あなたのポートフォリオを投稿しよう！</h1>
     <form class="form">
-      <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
-      <FormSet label="サイトタイトル" name="url" @input="getInput"></FormSet>
+      <FormSet
+        :initial-value="url"
+        label="サイトURL"
+        @emitedInput="setValue"
+      ></FormSet>
+      <FormSet
+        :initial-value="title"
+        label="サイトタイトル"
+        @emitedInput="setValue"
+      ></FormSet>
       <label class="form-title">
         サイト画像<span class="capture-ratio">（300×200）</span>
       </label>
@@ -17,7 +25,11 @@
         :prevent-white-space="true"
         class="file-form"
       ></croppa>
-      <FormSet label="サイトURL" name="url" @input="getInput"></FormSet>
+      <FormSet
+        :initial-value="twitterUrl"
+        label="TwitterURL"
+        @emitedInput="setValue"
+      ></FormSet>
       <PushInButton>投稿する</PushInButton>
     </form>
     <button class="logout-button" @click="logout">ログアウト</button>
@@ -47,7 +59,8 @@ export default {
       captureUrl: '',
       selectedFile: {},
       isPosting: false,
-      docId: ''
+      docId: '',
+      twitterUrl: ''
     }
   },
   async created() {
@@ -80,9 +93,8 @@ export default {
         this.docId = portfolioData.docId
       }
     },
-    getInput(value) {
+    setValue(value) {
       this.input = value
-      console.log(this.input)
     },
     logout() {
       firebase.auth().signOut()
