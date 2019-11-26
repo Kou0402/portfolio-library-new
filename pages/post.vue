@@ -40,7 +40,7 @@
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
 import firebase from '@/plugins/firebase'
-import FormSet from '~/components/page/post/Formset.vue'
+import FormSet from '~/components/page/post/FormSet.vue'
 import PushInButton from '~/components/ui/button/PushInButton.vue'
 import 'vue-croppa/dist/vue-croppa.css'
 Vue.use(Croppa)
