@@ -3,26 +3,17 @@
     <label class="label">
       {{ label }}
     </label>
-    <input
-      v-model="value"
-      type="text"
-      :name="name"
-      class="form"
-      @input="onChangeInput"
-    />
+    <input v-model="value" type="text" class="form" @input="emitInput" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
     label: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
     initialValue: {
       type: String,
@@ -44,11 +35,8 @@ export default {
     setInitialValue() {
       this.value = this.initialValue
     },
-    onChangeInput() {
-      this.commitChange(this.value)
-    },
-    commitChange(value) {
-      this.$emit('input', value)
+    emitInput() {
+      this.$emit('emitedInput', this.value)
     }
   }
 }
