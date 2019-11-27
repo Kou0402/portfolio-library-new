@@ -19,6 +19,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    name: {
+      type: String,
+      required: true,
+      default: ''
     }
   },
   data() {
@@ -36,7 +41,11 @@ export default {
       this.value = this.initialValue
     },
     emitInput() {
-      this.$emit('emitedInput', this.value)
+      const valueSet = {
+        value: this.value,
+        name: this.name
+      }
+      this.$emit('emitedInput', valueSet)
     }
   }
 }

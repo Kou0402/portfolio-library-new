@@ -3,20 +3,22 @@
     <h1 class="title">あなたのポートフォリオを投稿しよう！</h1>
     <form class="form">
       <FormSet
-        :initial-value="url"
+        :initial-value="portfolio.url"
         label="サイトURL"
+        name="url"
         @emitedInput="setValue"
       ></FormSet>
       <FormSet
-        :initial-value="title"
+        :initial-value="portfolio.title"
         label="サイトタイトル"
+        name="title"
         @emitedInput="setValue"
       ></FormSet>
       <label class="form-title">
         サイト画像<span class="capture-ratio">（300×200）</span>
       </label>
       <croppa
-        v-model="selectedFile"
+        v-model="portfolio.selectedFile"
         :width="300"
         :height="200"
         placeholder="ファイルを選択"
@@ -26,8 +28,9 @@
         class="file-form"
       ></croppa>
       <FormSet
-        :initial-value="twitterUrl"
+        :initial-value="portfolio.twitterUrl"
         label="TwitterURL"
+        name="twitterUrl"
         @emitedInput="setValue"
       ></FormSet>
       <PushInButton>投稿する</PushInButton>
@@ -52,20 +55,22 @@ export default {
   },
   data() {
     return {
+      portfolio: {
+        uid: '',
+        title: '',
+        url: '',
+        captureUrl: '',
+        selectedFile: {},
+        twitterUrl: ''
+      },
       input: '',
-      uid: '',
-      title: '',
-      url: '',
-      captureUrl: '',
-      selectedFile: {},
       isPosting: false,
-      docId: '',
-      twitterUrl: ''
+      docId: ''
     }
   },
   async created() {
     this.checkLogin()
-    await this.$store.dispatch('portfolio/fetchPortfolio', this.uid)
+    await this.$store.dispatch('portfolio/fetchPortfolio', this.portfolio.uid)
     this.setPortfolioData()
   },
   methods: {
@@ -76,7 +81,7 @@ export default {
     checkLogin() {
       const currentUser = firebase.auth().currentUser
       if (currentUser) {
-        this.uid = currentUser.uid
+        this.portfolio.uid = currentUser.uid
       } else {
         this.$router.push('/login')
       }
@@ -87,14 +92,24 @@ export default {
     setPortfolioData() {
       const portfolioData = this.$store.getters['portfolio/portfolio']
       if (portfolioData.docId) {
-        this.title = portfolioData.title
-        this.url = portfolioData.url
-        this.captureUrl = portfolioData.captureUrl
-        this.docId = portfolioData.docId
+        this.portfolio.title = portfolioData.title
+        this.portfolio.url = portfolioData.url
+        this.portfolio.captureUrl = portfolioData.captureUrl
+        this.portfolio.docId = portfolioData.docId
       }
     },
-    setValue(value) {
-      this.input = value
+    setValue(valueSet) {
+      switch (valueSet.name) {
+        case 'url':
+          this.portfolio.url = valueSet.value
+          break
+        case 'title':
+          this.portfolio.title = valueSet.value
+          break
+        case 'twitterUrl':
+          this.portfolio.twitterUrl = valueSet.value
+          break
+      }
     },
     logout() {
       firebase.auth().signOut()
