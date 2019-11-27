@@ -7,12 +7,12 @@
       <h3>{{ url }}</h3>
       <h2>サイト画像</h2>
       <img :src="captureUrl" />
-      <PushInButton @click="toPostPage">編集する</PushInButton>
+      <PushInButton @emitedClick="toPostPage">編集する</PushInButton>
     </template>
     <template v-else>
       <p>まだポートフォリオを投稿していません。</p>
       <p>投稿ページからポートフォリオを投稿しよう！</p>
-      <PushInButton @click="toPostPage">投稿ページへ</PushInButton>
+      <PushInButton @emitedClick="toPostPage">投稿ページへ</PushInButton>
     </template>
   </section>
 </template>

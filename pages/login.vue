@@ -14,7 +14,7 @@
       </p>
     </div>
     <div class="login-button-area">
-      <PushInButton @click="googleLogin">
+      <PushInButton @emitedClick="googleLogin">
         <i class="fab fa-google"></i>Googleでログイン
       </PushInButton>
       <button class="login-button" @click="twitterLogin">

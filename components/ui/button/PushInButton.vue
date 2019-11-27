@@ -1,12 +1,12 @@
 <template>
-  <button class="push-in-button" @click="onClick"><slot></slot></button>
+  <button class="push-in-button" @click="emitClick"><slot></slot></button>
 </template>
 
 <script>
 export default {
   methods: {
-    onClick() {
-      this.$emit('click')
+    emitClick() {
+      this.$emit('emitedClick')
     }
   }
 }
