@@ -1,5 +1,7 @@
 <template>
-  <button class="push-in-button" @click="emitClick"><slot></slot></button>
+  <button type="button" class="push-in-button" @click="emitClick">
+    <slot></slot>
+  </button>
 </template>
 
 <script>
