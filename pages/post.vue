@@ -33,7 +33,7 @@
         name="twitterUrl"
         @emitedInput="setValue"
       ></FormSet>
-      <PushInButton>投稿する</PushInButton>
+      <PushInButton @emitedClick="postPortfolio">投稿する</PushInButton>
     </form>
     <button class="logout-button" @click="logout">ログアウト</button>
   </section>
@@ -57,13 +57,13 @@ export default {
     return {
       portfolio: {
         uid: '',
+        docId: '',
         title: '',
         url: '',
         captureUrl: '',
         selectedFile: {},
         twitterUrl: ''
       },
-      input: '',
       isPosting: false,
       docId: ''
     }
@@ -92,12 +92,16 @@ export default {
     setPortfolioData() {
       const portfolioData = this.$store.getters['portfolio/portfolio']
       if (portfolioData.docId) {
+        this.portfolio.docId = portfolioData.docId
         this.portfolio.title = portfolioData.title
         this.portfolio.url = portfolioData.url
         this.portfolio.captureUrl = portfolioData.captureUrl
-        this.portfolio.docId = portfolioData.docId
       }
     },
+    /**
+     * Receives a value from FormSet.vue and sets it to data.
+     * @param {Object} valueSet object with value and data name
+     */
     setValue(valueSet) {
       switch (valueSet.name) {
         case 'url':
@@ -110,6 +114,25 @@ export default {
           this.portfolio.twitterUrl = valueSet.value
           break
       }
+    },
+    async postPortfolio() {
+      // const captureUrl = await this.uploadCapture()
+      const portfolioData = {}
+      portfolioData.uid = this.portfolio.uid
+      portfolioData.docId = this.portfolio.docId
+      portfolioData.url = this.portfolio.url
+      portfolioData.title = this.portfolio.title
+      portfolioData.captureUrl = this.portfolio.captureUrl
+      if (this.docId) {
+        await this.$store.dispatch('portfolio/updatePortfolio', {
+          portfolioData
+        })
+      } else {
+        await this.$store.dispatch('portfolio/publishPortfolio', {
+          portfolioData
+        })
+      }
+      this.$router.push('/')
     },
     logout() {
       firebase.auth().signOut()
