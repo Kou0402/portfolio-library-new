@@ -123,7 +123,7 @@ export default {
       portfolioData.url = this.portfolio.url
       portfolioData.title = this.portfolio.title
       portfolioData.captureUrl = this.portfolio.captureUrl
-      if (this.docId) {
+      if (this.portfolio.docId) {
         await this.$store.dispatch('portfolio/updatePortfolio', {
           portfolioData
         })
