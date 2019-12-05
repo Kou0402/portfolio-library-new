@@ -18,7 +18,7 @@
         サイト画像<span class="capture-ratio">（300×200）</span>
       </label>
       <croppa
-        v-model="portfolio.selectedFile"
+        v-model="selectedFile"
         :width="300"
         :height="200"
         placeholder="ファイルを選択"
@@ -61,11 +61,10 @@ export default {
         title: '',
         url: '',
         captureUrl: '',
-        selectedFile: {},
         twitterUrl: ''
       },
       isPosting: false,
-      docId: ''
+      selectedFile: {}
     }
   },
   async created() {
@@ -115,14 +114,18 @@ export default {
           break
       }
     },
+    /**
+     * Save portfolio data entered in the form in FireStore.
+     * DB access is performed from Vuex.
+     */
     async postPortfolio() {
-      // const captureUrl = await this.uploadCapture()
+      const captureUrl = await this.uploadCapture()
       const portfolioData = {}
       portfolioData.uid = this.portfolio.uid
       portfolioData.docId = this.portfolio.docId
       portfolioData.url = this.portfolio.url
       portfolioData.title = this.portfolio.title
-      portfolioData.captureUrl = this.portfolio.captureUrl
+      portfolioData.captureUrl = captureUrl
       if (this.portfolio.docId) {
         await this.$store.dispatch('portfolio/updatePortfolio', {
           portfolioData
@@ -133,6 +136,23 @@ export default {
         })
       }
       this.$router.push('/')
+    },
+    /**
+     * Upload the file input to Croppa to FireStorage. Upload from Vuex.
+     * @return {String} captureUrl
+     */
+    async uploadCapture() {
+      if (!this.selectedFile.hasImage()) return this.portfolio.captureUrl
+      const selectedFileBlob = await this.selectedFile.promisedBlob(
+        'image/jpeg'
+      )
+      const storageRef = firebase
+        .storage()
+        .ref('image/portfolio/')
+        .child(this.portfolio.uid)
+      await storageRef.put(selectedFileBlob)
+      const captureUrl = await storageRef.getDownloadURL()
+      return captureUrl
     },
     logout() {
       firebase.auth().signOut()
