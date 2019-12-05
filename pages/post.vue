@@ -28,9 +28,9 @@
         class="file-form"
       ></croppa>
       <FormSet
-        :initial-value="portfolio.twitterUrl"
-        label="TwitterURL"
-        name="twitterUrl"
+        :initial-value="portfolio.twitterId"
+        label="TwitterID"
+        name="twitterId"
         @emitedInput="setValue"
       ></FormSet>
       <PushInButton @emitedClick="postPortfolio">投稿する</PushInButton>
@@ -61,7 +61,7 @@ export default {
         title: '',
         url: '',
         captureUrl: '',
-        twitterUrl: ''
+        twitterId: ''
       },
       isPosting: false,
       selectedFile: {}
@@ -95,6 +95,7 @@ export default {
         this.portfolio.title = portfolioData.title
         this.portfolio.url = portfolioData.url
         this.portfolio.captureUrl = portfolioData.captureUrl
+        this.portfolio.twitterId = portfolioData.twitterId
       }
     },
     /**
@@ -109,8 +110,8 @@ export default {
         case 'title':
           this.portfolio.title = valueSet.value
           break
-        case 'twitterUrl':
-          this.portfolio.twitterUrl = valueSet.value
+        case 'twitterId':
+          this.portfolio.twitterId = valueSet.value
           break
       }
     },
@@ -125,6 +126,7 @@ export default {
       portfolioData.docId = this.portfolio.docId
       portfolioData.url = this.portfolio.url
       portfolioData.title = this.portfolio.title
+      portfolioData.twitterId = this.portfolio.twitterId
       portfolioData.captureUrl = captureUrl
       if (this.portfolio.docId) {
         await this.$store.dispatch('portfolio/updatePortfolio', {

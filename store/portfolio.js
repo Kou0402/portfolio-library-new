@@ -37,6 +37,7 @@ export const actions = {
           portfolioData.title = document.data().title
           portfolioData.url = document.data().url
           portfolioData.captureUrl = document.data().captureUrl
+          portfolioData.twitterId = document.data().twitterId
           portfolioData.docId = document.id
         })
       })
@@ -65,6 +66,7 @@ export const actions = {
           tempData.title = document.title
           tempData.url = document.url
           tempData.captureUrl = document.captureUrl
+          tempData.twitterId = document.twitterId
           portfolioData.push(tempData)
         })
       })
@@ -85,6 +87,7 @@ export const actions = {
         url: portfolioData.url,
         title: portfolioData.title,
         captureUrl: portfolioData.captureUrl,
+        twitterId: portfolioData.twitterId,
         createdAt: new Date()
       })
       .catch((error) => {
@@ -101,6 +104,7 @@ export const actions = {
         url: portfolioData.url,
         title: portfolioData.title,
         captureUrl: portfolioData.captureUrl,
+        twitterId: portfolioData.twitterId,
         createdAt: new Date()
       })
       .catch((error) => {
