@@ -7,7 +7,7 @@
       </p>
       <div class="favorite"><span class="star">★</span>999</div>
     </a>
-    <a href="https://twitter.com/ko_u_0402" class="icon">
+    <a v-show="twitterId" :href="twitterUrl" class="icon">
       <i class="fab fa-twitter"></i>
     </a>
   </article>
@@ -27,6 +27,16 @@ export default {
     captureUrl: {
       type: String,
       default: ''
+    },
+    twitterId: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  },
+  computed: {
+    twitterUrl() {
+      return `https://twitter.com/${this.twitterId}`
     }
   }
 }

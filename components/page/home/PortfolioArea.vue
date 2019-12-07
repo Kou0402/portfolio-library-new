@@ -6,6 +6,7 @@
       :url="item.url"
       :title="item.title"
       :capture-url="item.captureUrl"
+      :twitter-id="item.twitterId"
     ></PortfolioCard>
   </section>
 </template>
