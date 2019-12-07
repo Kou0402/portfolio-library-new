@@ -26,7 +26,14 @@
         remove-button-color="#464159"
         :prevent-white-space="true"
         class="file-form"
-      ></croppa>
+      >
+        <img
+          slot="initial"
+          :src="portfolio.captureUrl"
+          crossOrigin="Anonymous"
+        />
+        />
+      </croppa>
       <FormSet
         :initial-value="portfolio.twitterId"
         label="TwitterID"
