@@ -1,6 +1,6 @@
 import firebase from '~/plugins/firebase'
 
-export default async ({ req, route, redirect }) => {
+export default async ({ route, redirect }) => {
   if (!['/login'].includes(route.path)) {
     return
   }

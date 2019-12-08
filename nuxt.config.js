@@ -54,6 +54,12 @@ export default {
    */
   modules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv'],
   /*
+   ** Middleware registration
+   */
+  router: {
+    middleware: 'auth'
+  },
+  /*
    ** Build configuration
    */
   build: {
