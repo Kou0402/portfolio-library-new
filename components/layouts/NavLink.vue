@@ -1,6 +1,7 @@
 <template>
   <div class="nav-link">
-    <nuxt-link :to="path" class="name"><slot></slot></nuxt-link>
+    <nuxt-link v-if="path" :to="path" class="name"><slot></slot></nuxt-link>
+    <div v-else class="name" @click="emitClick"><slot></slot></div>
   </div>
 </template>
 
@@ -9,7 +10,13 @@ export default {
   props: {
     path: {
       type: String,
-      required: true
+      required: false,
+      default: ''
+    }
+  },
+  methods: {
+    emitClick() {
+      this.$emit('emitedClick')
     }
   }
 }
@@ -23,6 +30,7 @@ export default {
     color: $base-color;
     font-size: 1.6rem;
     text-decoration: none;
+    cursor: pointer;
   }
   > .name::after {
     position: absolute;

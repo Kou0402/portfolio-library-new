@@ -42,14 +42,13 @@
       ></FormSet>
       <PushInButton @emitedClick="postPortfolio">投稿する</PushInButton>
     </form>
-    <button class="logout-button" @click="logout">ログアウト</button>
   </section>
 </template>
 
 <script>
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
-import firebase from '@/plugins/firebase'
+import firebase from '~/plugins/firebase'
 import FormSet from '~/components/page/post/FormSet.vue'
 import PushInButton from '~/components/ui/button/PushInButton.vue'
 import 'vue-croppa/dist/vue-croppa.css'
@@ -74,23 +73,27 @@ export default {
       selectedFile: {}
     }
   },
-  async created() {
-    this.checkLogin()
-    await this.$store.dispatch('portfolio/fetchPortfolio', this.portfolio.uid)
-    this.setPortfolioData()
+  created() {
+    if (this.isLogin()) {
+      firebase.auth().onAuthStateChanged(async (currentUser) => {
+        this.portfolio.uid = currentUser.uid
+        await this.$store.dispatch(
+          'portfolio/fetchPortfolio',
+          this.portfolio.uid
+        )
+        this.setPortfolioData()
+      })
+    }
   },
   methods: {
     /**
-     * Check login status and set uid if logged in.
-     * Otherwise, transition to the login page.
+     * Check the authentication status,
+     * and transition to the login page if not logged in.
      */
-    checkLogin() {
-      const currentUser = firebase.auth().currentUser
-      if (currentUser) {
-        this.portfolio.uid = currentUser.uid
-      } else {
-        this.$router.push('/login')
-      }
+    isLogin() {
+      const isLogin = this.$store.getters['auth/isLogin']
+      if (!isLogin) this.$router.push('/login')
+      return isLogin
     },
     /**
      * Get portfolio data from store and set to data.
@@ -162,10 +165,6 @@ export default {
       await storageRef.put(selectedFileBlob)
       const captureUrl = await storageRef.getDownloadURL()
       return captureUrl
-    },
-    logout() {
-      firebase.auth().signOut()
-      this.$router.push('/')
     }
   }
 }

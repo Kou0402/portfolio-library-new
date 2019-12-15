@@ -8,11 +8,16 @@
     <NavLink path="lecture">ポートフォリオ作り方講座</NavLink>
     <NavLink path="contact">コンタクト</NavLink>
     <NavLink path="mypage" class="mypage">マイページ</NavLink>
-    <NavLink path="login" class="login">ログイン</NavLink>
+    <NavLink v-if="isLogin" class="auth" @emitedClick="logout"
+      >ログアウト</NavLink
+    >
+    <NavLink v-else path="login" class="auth">ログイン</NavLink>
   </section>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+import firebase from '~/plugins/firebase'
 import NavLogo from '~/components/layouts/NavLogo.vue'
 import NavLink from '~/components/layouts/NavLink.vue'
 
@@ -20,6 +25,19 @@ export default {
   components: {
     NavLogo,
     NavLink
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters['auth/isLogin']
+    }
+  },
+  methods: {
+    logout() {
+      Cookies.remove('idToken')
+      this.$store.dispatch('auth/updateLoginState', false)
+      firebase.auth().signOut()
+      this.$router.push('/')
+    }
   }
 }
 </script>

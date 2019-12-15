@@ -7,13 +7,13 @@ export const getters = {
 }
 
 export const mutations = {
-  commitLoginState(state, isLogin) {
+  commitIsLogin(state, isLogin) {
     state.isLogin = isLogin
   }
 }
 
 export const actions = {
   updateLoginState({ commit }, isLogin) {
-    commit('commitLoginState', isLogin)
+    commit('commitIsLogin', isLogin)
   }
 }

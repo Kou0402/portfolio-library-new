@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import firebase from '@/plugins/firebase'
 import PushInButton from '~/components/ui/button/PushInButton.vue'
 
@@ -41,9 +42,13 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.isWaiting = false
-        return user
+      } else {
+        user.getIdToken(true).then((idToken) => {
+          Cookies.set('idToken', idToken)
+          this.$store.dispatch('auth/updateLoginState', true)
+          this.$router.push('/mypage')
+        })
       }
-      this.$router.push('/mypage')
     })
   },
   methods: {
@@ -54,9 +59,6 @@ export default {
     twitterLogin() {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithRedirect(provider)
-    },
-    logOut() {
-      firebase.auth().signOut()
     }
   }
 }
