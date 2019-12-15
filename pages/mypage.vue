@@ -1,12 +1,12 @@
 <template>
   <section class="mypage">
-    <template v-if="docId">
+    <template v-if="portfolio.docId">
       <h2>サイトタイトル</h2>
-      <h3>{{ title }}</h3>
+      <h3>{{ portfolio.title }}</h3>
       <h2>サイトURL</h2>
-      <h3>{{ url }}</h3>
+      <h3>{{ portfolio.url }}</h3>
       <h2>サイト画像</h2>
-      <img :src="captureUrl" />
+      <img :src="portfolio.captureUrl" />
       <PushInButton @emitedClick="toPostPage">編集する</PushInButton>
     </template>
     <template v-else>
@@ -27,43 +27,41 @@ export default {
   },
   data() {
     return {
-      uid: '',
-      title: '',
-      url: '',
-      captureUrl: '',
-      selectedFile: {},
-      isPosting: false,
-      docId: ''
+      portfolio: {
+        uid: '',
+        docId: '',
+        title: '',
+        url: '',
+        captureUrl: '',
+        twitterId: ''
+      },
+      isPosting: false
     }
   },
-  async created() {
-    this.checkLogin()
-    await this.$store.dispatch('portfolio/fetchPortfolio', this.uid)
-    this.setPortfolioData()
+  created() {
+    if (this.$store.getters['auth/isLogin']) {
+      firebase.auth().onAuthStateChanged(async (currentUser) => {
+        this.portfolio.uid = currentUser.uid
+        await this.$store.dispatch(
+          'portfolio/fetchPortfolio',
+          this.portfolio.uid
+        )
+        this.setPortfolioData()
+      })
+    }
   },
   methods: {
-    /**
-     * Check login status and set uid if logged in.
-     * Otherwise, transition to the login page.
-     */
-    checkLogin() {
-      const currentUser = firebase.auth().currentUser
-      if (currentUser) {
-        this.uid = currentUser.uid
-      } else {
-        this.$router.push('/login')
-      }
-    },
     /**
      * Get portfolio data from store and set to data.
      */
     setPortfolioData() {
       const portfolioData = this.$store.getters['portfolio/portfolio']
       if (portfolioData.docId) {
-        this.title = portfolioData.title
-        this.url = portfolioData.url
-        this.captureUrl = portfolioData.captureUrl
-        this.docId = portfolioData.docId
+        this.portfolio.docId = portfolioData.docId
+        this.portfolio.title = portfolioData.title
+        this.portfolio.url = portfolioData.url
+        this.portfolio.captureUrl = portfolioData.captureUrl
+        this.portfolio.twitterId = portfolioData.twitterId
       }
     },
     /**

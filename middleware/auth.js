@@ -19,10 +19,9 @@ export default ({ req, store, route, redirect }) => {
   }
   // Control routing
   const isLogin = store.getters['auth/isLogin']
-  if (!['/login'].includes(route.path)) {
-    return
-  }
-  if (isLogin) {
-    return redirect('/mypage')
+  if (!isLogin) {
+    if (['/mypage'].includes(route.path) || ['/post'].includes(route.path)) {
+      return redirect('/login')
+    }
   }
 }

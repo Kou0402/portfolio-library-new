@@ -74,7 +74,7 @@ export default {
     }
   },
   created() {
-    if (this.isLogin()) {
+    if (this.$store.getters['auth/isLogin']) {
       firebase.auth().onAuthStateChanged(async (currentUser) => {
         this.portfolio.uid = currentUser.uid
         await this.$store.dispatch(
@@ -86,15 +86,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * Check the authentication status,
-     * and transition to the login page if not logged in.
-     */
-    isLogin() {
-      const isLogin = this.$store.getters['auth/isLogin']
-      if (!isLogin) this.$router.push('/login')
-      return isLogin
-    },
     /**
      * Get portfolio data from store and set to data.
      */
