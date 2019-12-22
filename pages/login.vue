@@ -39,15 +39,16 @@ export default {
     }
   },
   created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
+    firebase.auth().onAuthStateChanged((auth) => {
+      if (!auth) {
         this.isWaiting = false
       } else {
-        user.getIdToken(true).then((idToken) => {
+        auth.getIdToken(true).then((idToken) => {
           Cookies.set('idToken', idToken)
-          this.$store.dispatch('auth/updateLoginState', true)
-          this.$router.push('/mypage')
         })
+        this.$store.dispatch('auth/updateLoginState', true)
+        this.publishUser(auth)
+        this.$router.push('/mypage')
       }
     })
   },
@@ -59,6 +60,12 @@ export default {
     twitterLogin() {
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithRedirect(provider)
+    },
+    async publishUser(auth) {
+      const user = {}
+      user.uid = auth.uid
+      user.name = auth.displayName
+      await this.$store.dispatch('user/publishUser', user)
     }
   }
 }

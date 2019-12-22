@@ -6,6 +6,11 @@ service cloud.firestore {
       allow create: if isLoginUser() && validateUrl() && validateTitle()
       allow update: if isCreateUser() && validateUrl() && validateTitle()
     }
+    match /user /{userId} {
+      allow read;
+      allow create;
+      allow update;
+    }
 
     function isLoginUser() {
     	return request.auth != null
