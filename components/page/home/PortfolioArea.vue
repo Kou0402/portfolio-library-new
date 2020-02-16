@@ -7,6 +7,7 @@
       :title="item.title"
       :capture-url="item.captureUrl"
       :twitter-id="item.twitterId"
+      :doc-id="item.docId"
     ></PortfolioCard>
   </section>
 </template>

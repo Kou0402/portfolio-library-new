@@ -8,15 +8,17 @@ export default ({ req, store, route, redirect }) => {
       firebaseAdmin
         .auth()
         .verifyIdToken(idToken)
-        .then(() => {
+        .then((decodedToken) => {
           store.dispatch('auth/updateLoginState', true)
+          store.dispatch('user/fetchUser', decodedToken.uid)
         })
-        .catch((error) => {
+        .catch(() => {
           store.dispatch('auth/updateLoginState', false)
-          console.error(error)
+          console.log('認証有効期間を過ぎているため、再認証が必要です。')
         })
     }
   }
+
   // Control routing
   const isLogin = store.getters['auth/isLogin']
   if (!isLogin) {

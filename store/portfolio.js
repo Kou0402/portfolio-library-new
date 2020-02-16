@@ -107,9 +107,16 @@ export const actions = {
         twitterId: portfolioData.twitterId,
         createdAt: new Date()
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch((error) => console.log(error))
     commit('addPortfolio', portfolioData)
+  },
+  async updateLikes({ commit }, { portfolio }) {
+    await db
+      .collection('portfolio')
+      .doc(portfolio.docId)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayUnion(portfolio.likes)
+      })
+      .catch((error) => console.error(error))
   }
 }
